@@ -4,7 +4,7 @@ import { ThemesContext } from '../Context/ThemesContext';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import secondsParser from '../utils/secondsParser';
 
-const Counter = ({ task, style }) => {
+const Counter = ({ task, style, iconSize }) => {
   const { theme } = useContext(ThemesContext);
 
   const remainingSeconds = task.dailyGoal - task.dailyProgress;
@@ -24,7 +24,7 @@ const Counter = ({ task, style }) => {
       {hours > 0 && <CounterText text={hours + ' HR '} />}
       {minutes > 0 && <CounterText text={minutes + ' MIN '} />}
       {minutes === 0 && hours === 0 ? (
-        <Icon color={theme.primary} name="check" size={30} />
+        <Icon color={theme.primary} name="check" size={iconSize} />
       ) : (
         <CounterText text="LEFT" />
       )}

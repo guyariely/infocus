@@ -18,7 +18,11 @@ const TaskItem = ({ navigation, task }) => {
             {task.title}
           </Text>
         </View>
-        <Counter task={task} style={{ counter: styles(theme).counter }} />
+        <Counter
+          task={task}
+          style={{ counter: styles(theme).counter }}
+          iconSize={30}
+        />
       </View>
       {!!task.description && (
         <Text style={styles(theme).description} numberOfLines={2}>

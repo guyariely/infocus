@@ -27,7 +27,7 @@ const DailyGoal = ({ dailyGoal, setDailyGoal }) => {
     });
   }
 
-  for (let i = 5; i <= 55; i += 5) {
+  for (let i = 1; i <= 59; i++) {
     minutesRange.push({
       label: i < 10 ? `0${i}m` : `${i}m`,
       value: i,

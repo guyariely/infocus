@@ -4,7 +4,7 @@ import { ThemesContext } from '../../Context/ThemesContext';
 import { withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const Header = ({ navigation, task }) => {
+const Header = ({ navigation, task, pauseTask }) => {
   const { theme } = useContext(ThemesContext);
 
   return (
@@ -16,7 +16,10 @@ const Header = ({ navigation, task }) => {
         <Icon color={theme.primary} name="timeline" size={24} />
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation.push('FormScreen', { task, id: task.id })}
+        onPress={() => {
+          pauseTask();
+          navigation.push('FormScreen', { task, id: task.id });
+        }}
       >
         <Icon color={theme.primary} name="create" size={24} />
       </TouchableOpacity>

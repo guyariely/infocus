@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, ActivityIndicator } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import { ThemesContext } from '../../Context/ThemesContext';
+import { getTasks } from '../../utils/TasksPersist';
 import Header from './Header';
 import TaskList from './TaskList';
-import _tasks from '../../../tasks';
 
 function TaskListScreen(props) {
   const { theme } = useContext(ThemesContext);
@@ -13,7 +13,7 @@ function TaskListScreen(props) {
   const [filteredTasks, setFilteredTasks] = useState(null);
 
   useEffect(() => {
-    setTasks(_tasks);
+    getTasks().then(tasks => setTasks(tasks.reverse()));
   }, [props.isFocused]);
 
   return (

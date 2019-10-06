@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { View, TextInput, TouchableOpacity } from 'react-native';
 import { ThemesContext } from '../../Context/ThemesContext';
+import { withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const Header = ({ tasks, setFilteredTasks }) => {
+const Header = ({ navigation, tasks, setFilteredTasks }) => {
   const { theme } = useContext(ThemesContext);
 
   const [searchInput, setSearchInput] = useState('');
@@ -33,7 +34,7 @@ const Header = ({ tasks, setFilteredTasks }) => {
         }}
       />
       <TouchableOpacity
-        onPress={() => alert('adding task...')}
+        onPress={() => navigation.push('FormScreen', { action: 'create' })}
         style={styles(theme).addButton}
       >
         <Icon color={theme.primary} name="add" size={30} />
@@ -63,4 +64,4 @@ const styles = theme => {
   };
 };
 
-export default Header;
+export default withNavigation(Header);

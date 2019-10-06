@@ -17,6 +17,7 @@ const Description = ({ description, setDescription }) => {
           selectionColor={theme.primary}
           value={description}
           onChangeText={input => setDescription(input)}
+          onBlur={() => setDescription(description.trim())}
         />
       </View>
     </View>

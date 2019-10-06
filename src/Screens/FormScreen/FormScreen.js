@@ -1,12 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
 import { ThemesContext } from '../../Context/ThemesContext';
+import { createTask, updateTask } from '../../utils/TasksPersist';
 import Header from './Header';
 import Form from './Form/Form';
 
 const FormScreen = ({ navigation }) => {
   const { theme } = useContext(ThemesContext);
 
+  const action = navigation.getParam('action');
   const task = navigation.getParam('task', {
     title: '',
     dailyGoal: 1800,
@@ -19,9 +21,16 @@ const FormScreen = ({ navigation }) => {
   const [weekendOff, setWeekendOff] = useState(task.weekendOff);
   const [description, setDescription] = useState(task.description);
 
+  const saveTask = async () => {
+    action == 'create'
+      ? await createTask({ title, dailyGoal, weekendOff, description })
+      : await updateTask({ title, dailyGoal, weekendOff, description });
+    navigation.goBack();
+  };
+
   return (
     <KeyboardAvoidingScrollView style={styles(theme).container}>
-      <Header isSaveDisabled={!title || !dailyGoal} />
+      <Header isSaveDisabled={!title || !dailyGoal} saveTask={saveTask} />
       <Form
         title={title}
         setTitle={setTitle}

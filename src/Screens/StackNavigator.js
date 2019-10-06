@@ -1,14 +1,22 @@
 import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from 'react-navigation';
-import TaskList from '../Screens/TaskListScreen/TaskListScreen';
-import Form from '../Screens/FormScreen/FormScreen';
+import TaskListScreen from '../Screens/TaskListScreen/TaskListScreen';
+import FormScreen from '../Screens/FormScreen/FormScreen';
 
 const StackNavigator = createStackNavigator(
   {
-    Form,
-    TaskList,
+    TaskListScreen: {
+      screen: TaskListScreen,
+    },
+    FormScreen: {
+      screen: FormScreen,
+      navigationOptions: {
+        gesturesEnabled: false,
+      },
+    },
   },
   {
+    mode: 'modal',
     headerMode: 'none',
   }
 );

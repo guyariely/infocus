@@ -34,7 +34,7 @@ const Header = ({ navigation, tasks, setFilteredTasks }) => {
         }}
       />
       <TouchableOpacity
-        onPress={() => navigation.push('FormScreen', { action: 'create' })}
+        onPress={() => navigation.push('FormScreen')}
         style={styles(theme).addButton}
       >
         <Icon color={theme.primary} name="add" size={30} />

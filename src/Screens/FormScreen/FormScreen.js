@@ -8,7 +8,7 @@ import Form from './Form/Form';
 const FormScreen = ({ navigation }) => {
   const { theme } = useContext(ThemesContext);
 
-  const action = navigation.getParam('action');
+  const id = navigation.getParam('id');
   const task = navigation.getParam('task', {
     title: '',
     dailyGoal: 1800,
@@ -22,9 +22,10 @@ const FormScreen = ({ navigation }) => {
   const [description, setDescription] = useState(task.description);
 
   const saveTask = async () => {
-    action == 'create'
-      ? await createTask({ title, dailyGoal, weekendOff, description })
-      : await updateTask({ title, dailyGoal, weekendOff, description });
+    if (!id) {
+      await createTask({ title, dailyGoal, weekendOff, description });
+    }
+    await updateTask(id, { title, dailyGoal, weekendOff, description });
     navigation.goBack();
   };
 

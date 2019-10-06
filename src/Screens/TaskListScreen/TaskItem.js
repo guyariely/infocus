@@ -10,7 +10,7 @@ const TaskItem = ({ navigation, task }) => {
   return (
     <TouchableOpacity
       style={styles(theme).container}
-      onPress={() => navigation.push('TaskScreen', { task })}
+      onPress={() => navigation.push('TaskScreen', { task, id: task.id })}
     >
       <View style={styles(theme).main}>
         <View style={styles(theme).titleContainer}>

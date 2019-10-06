@@ -1,13 +1,17 @@
 import React, { useContext } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { ThemesContext } from '../../Context/ThemesContext';
+import { withNavigation } from 'react-navigation';
 import Counter from '../../Components/Counter';
 
-const TaskItem = ({ task }) => {
+const TaskItem = ({ navigation, task }) => {
   const { theme } = useContext(ThemesContext);
 
   return (
-    <TouchableOpacity style={styles(theme).container}>
+    <TouchableOpacity
+      style={styles(theme).container}
+      onPress={() => navigation.push('TaskScreen', { task })}
+    >
       <View style={styles(theme).main}>
         <View style={styles(theme).titleContainer}>
           <Text style={styles(theme).title} numberOfLines={1}>
@@ -66,4 +70,4 @@ const styles = theme => {
   };
 };
 
-export default TaskItem;
+export default withNavigation(TaskItem);

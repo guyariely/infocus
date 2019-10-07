@@ -1,15 +1,20 @@
 import { AsyncStorage } from 'react-native';
 import uuid from 'uuid';
+import { createStats, updateStats } from './statsUtils';
 
 // AsyncStorage.removeItem('tasks').then();
 
 const getTasks = async () => {
   try {
-    const tasks = await AsyncStorage.getItem('tasks');
+    let tasks = await AsyncStorage.getItem('tasks');
+    tasks = JSON.parse(tasks);
     if (!tasks) {
       return [];
     }
-    return JSON.parse(tasks);
+    if (tasks[0].stats[6].date != new Date().toLocaleDateString()) {
+      resetTasks(tasks).then(newTasks => (tasks = newTasks));
+    }
+    return tasks;
   } catch (error) {
     console.log(error);
   }
@@ -29,7 +34,7 @@ const getTask = async id => {
 };
 
 const createTask = async task => {
-  // TODO: add stats property
+  const stats = createStats(task.dailyGoal);
   try {
     const newTask = {
       id: uuid.v4(),
@@ -38,6 +43,7 @@ const createTask = async task => {
       dailyProgress: 0,
       weekendOff: task.weekendOff,
       description: task.description,
+      stats: stats,
     };
     const tasks = await getTasks();
     tasks.push(newTask);
@@ -50,15 +56,16 @@ const createTask = async task => {
 const updateTask = async (id, updates) => {
   try {
     const tasks = await getTasks();
-    tasks.some(task => {
+    const updatedTask = tasks.find((task, i) => {
       if (task.id == id) {
-        Object.keys(updates).forEach(
-          update => (task[update] = updates[update])
-        );
-        return true;
+        Object.keys(updates).forEach(update => {
+          tasks[i][update] = updates[update];
+        });
+        return tasks[i];
       }
     });
     await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
+    return updatedTask;
   } catch (error) {
     console.log(error);
   }
@@ -74,4 +81,23 @@ const deleteTask = async id => {
   }
 };
 
-export { getTasks, getTask, createTask, updateTask, deleteTask };
+const resetTasks = async tasks => {
+  tasks = tasks.map(task => {
+    task.dailyProgress = 0;
+    task.stats = updateStats(task.dailyGoal, task.stats);
+    return task;
+  });
+  await AsyncStorage.setItem('tasks', JSON.stringify(tasks));
+  return tasks;
+};
+
+const resetTask = async task => {
+  const updates = {
+    dailyProgress: 0,
+    stats: updateStats(task.dailyGoal, task.stats),
+  };
+  const updatedTask = await updateTask(task.id, updates);
+  return updatedTask;
+};
+
+export { getTasks, getTask, createTask, updateTask, deleteTask, resetTask };

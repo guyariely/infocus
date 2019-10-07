@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
 import { ThemesContext } from '../../Context/ThemesContext';
-import { createTask, updateTask } from '../../utils/TasksPersist';
+import { createTask, updateTask } from '../../utils/tasksPersist';
 import Header from './Header';
 import Form from './Form/Form';
 
@@ -31,7 +31,10 @@ const FormScreen = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingScrollView style={styles(theme).container}>
-      <Header isSaveDisabled={!title || !dailyGoal} saveTask={saveTask} />
+      <Header
+        isSaveDisabled={!title.trim() || !dailyGoal}
+        saveTask={saveTask}
+      />
       <Form
         title={title}
         setTitle={setTitle}

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { View, ScrollView, ActivityIndicator } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import { ThemesContext } from '../../Context/ThemesContext';
-import { getTasks } from '../../utils/TasksPersist';
+import { getTasks } from '../../utils/tasksPersist';
 import Header from './Header';
 import TaskList from './TaskList';
 

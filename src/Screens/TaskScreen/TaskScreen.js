@@ -3,7 +3,7 @@ import { useInterval } from '../../Hooks/useInterval';
 import { View, Text } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import { ThemesContext } from '../../Context/ThemesContext';
-import { getTask, updateTask } from '../../utils/TasksPersist';
+import { getTask, updateTask, resetTask } from '../../utils/tasksPersist';
 import Header from './Header';
 import TaskDetails from './TaskDetails';
 import Counter from '../../Components/Counter';
@@ -21,13 +21,24 @@ const TaskScreen = ({ navigation, isFocused }) => {
   }, [isFocused]);
 
   const focus = async () => {
-    if (isPlaying) {
-      if (task.dailyGoal == task.dailyProgress) return;
+    if (task.stats[6].date != new Date().toLocaleDateString()) {
+      console.log('reseting...');
+      const updatedTask = await resetTask(task);
+      return setTask(updatedTask);
+    }
 
-      const updatedTask = { ...task };
-      updatedTask.dailyProgress++;
+    if (isPlaying) {
+      if (task.dailyGoal == task.dailyProgress) {
+        return setIsPlaying(false);
+      }
+      const updatedStats = task.stats;
+      updatedStats[6].dailyProgress++;
+
+      const updatedTask = await updateTask(task.id, {
+        dailyProgress: task.dailyProgress + 1,
+        stats: updatedStats,
+      });
       setTask(updatedTask);
-      await updateTask(task.id, { dailyProgress: updatedTask.dailyProgress });
     }
   };
   useInterval(focus, 1000);

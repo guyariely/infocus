@@ -10,7 +10,7 @@ const TaskList = ({ tasks }) => {
   const completedTasks = [];
 
   tasks.forEach(task => {
-    task.dailyGoal === task.dailyProgress
+    task.dailyProgress >= task.dailyGoal
       ? completedTasks.push(task)
       : uncompletedTasks.push(task);
   });

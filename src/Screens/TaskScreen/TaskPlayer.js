@@ -14,6 +14,7 @@ const TaskPlayer = ({ task, isPlaying, setIsPlaying }) => {
         width={6}
         fill={100 * (task.dailyProgress / task.dailyGoal)}
         rotation={0}
+        duration={1500}
         tintColor={theme.primary}
         backgroundColor={theme.primary02}
       >

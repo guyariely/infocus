@@ -3,6 +3,7 @@ import { createAppContainer } from 'react-navigation';
 import TaskListScreen from '../Screens/TaskListScreen/TaskListScreen';
 import FormScreen from '../Screens/FormScreen/FormScreen';
 import TaskScreen from '../Screens/TaskScreen/TaskScreen';
+import StatsScreen from '../Screens/StatsScreen/StatsScreen';
 
 const StackNavigator = createStackNavigator(
   {
@@ -17,6 +18,12 @@ const StackNavigator = createStackNavigator(
     },
     TaskScreen: {
       screen: TaskScreen,
+      navigationOptions: {
+        gesturesEnabled: false,
+      },
+    },
+    StatsScreen: {
+      screen: StatsScreen,
       navigationOptions: {
         gesturesEnabled: false,
       },

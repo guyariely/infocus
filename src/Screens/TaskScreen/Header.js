@@ -12,7 +12,13 @@ const Header = ({ navigation, task, pauseTask }) => {
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <Icon color={theme.primary} name="close" size={24} />
       </TouchableOpacity>
-      <TouchableOpacity style={styles(theme).statsButton}>
+      <TouchableOpacity
+        style={styles(theme).statsButton}
+        onPress={() => {
+          pauseTask();
+          navigation.push('StatsScreen', { task });
+        }}
+      >
         <Icon color={theme.primary} name="timeline" size={24} />
       </TouchableOpacity>
       <TouchableOpacity

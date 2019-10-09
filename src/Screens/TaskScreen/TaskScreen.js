@@ -22,7 +22,6 @@ const TaskScreen = ({ navigation, isFocused }) => {
 
   const focus = async () => {
     if (task.stats[6].date != new Date().toLocaleDateString()) {
-      console.log('reseting...');
       const updatedTask = await resetTask(task);
       return setTask(updatedTask);
     }
@@ -47,7 +46,7 @@ const TaskScreen = ({ navigation, isFocused }) => {
     <View style={styles(theme).container}>
       <Header task={task} pauseTask={() => setIsPlaying(false)} />
       <TaskDetails title={task.title} description={task.description} />
-      {task.dailyProgress == task.dailyGoal && (
+      {task.dailyProgress >= task.dailyGoal && (
         <Text style={styles(theme).completetionText}>DAILY GOAL COMPLETED</Text>
       )}
       <Counter
@@ -55,7 +54,7 @@ const TaskScreen = ({ navigation, isFocused }) => {
         style={{ counter: styles(theme).counter }}
         iconSize={60}
       />
-      {task.dailyProgress != task.dailyGoal && (
+      {task.dailyProgress < task.dailyGoal && (
         <TaskPlayer
           task={task}
           isPlaying={isPlaying}

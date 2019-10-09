@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { View } from 'react-native';
 import { KeyboardAvoidingScrollView } from 'react-native-keyboard-avoiding-scroll-view';
 import { ThemesContext } from '../../Context/ThemesContext';
 import { createTask, updateTask } from '../../utils/tasksPersist';
@@ -30,22 +31,24 @@ const FormScreen = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingScrollView style={styles(theme).container}>
-      <Header
-        isSaveDisabled={!title.trim() || !dailyGoal}
-        saveTask={saveTask}
-      />
-      <Form
-        title={title}
-        setTitle={setTitle}
-        dailyGoal={dailyGoal}
-        setDailyGoal={setDailyGoal}
-        weekendOff={weekendOff}
-        setWeekendOff={setWeekendOff}
-        description={description}
-        setDescription={setDescription}
-      />
-    </KeyboardAvoidingScrollView>
+    <View style={{ flex: 1, backgroundColor: theme.base01 }}>
+      <KeyboardAvoidingScrollView style={styles(theme).container}>
+        <Header
+          isSaveDisabled={!title.trim() || !dailyGoal}
+          saveTask={saveTask}
+        />
+        <Form
+          title={title}
+          setTitle={setTitle}
+          dailyGoal={dailyGoal}
+          setDailyGoal={setDailyGoal}
+          weekendOff={weekendOff}
+          setWeekendOff={setWeekendOff}
+          description={description}
+          setDescription={setDescription}
+        />
+      </KeyboardAvoidingScrollView>
+    </View>
   );
 };
 

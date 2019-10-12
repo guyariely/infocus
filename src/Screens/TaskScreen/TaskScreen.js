@@ -14,6 +14,7 @@ const TaskScreen = ({ navigation, isFocused }) => {
 
   const [task, setTask] = useState(navigation.getParam('task'));
   const [isPlaying, setIsPlaying] = useState(false);
+  const [cachedTime, setCachedTime] = useState(null);
 
   const id = navigation.getParam('id');
   useEffect(() => {
@@ -27,17 +28,25 @@ const TaskScreen = ({ navigation, isFocused }) => {
     }
 
     if (isPlaying) {
-      if (task.dailyGoal == task.dailyProgress) {
+      if (task.dailyGoal >= task.dailyProgress) {
         return setIsPlaying(false);
       }
+      console.log('playing...');
+      const progress = Math.round((new Date().getTime() - cachedTime) / 1000);
+
       const updatedStats = task.stats;
-      updatedStats[6].dailyProgress++;
+      const { dailyProgress, dailyGoal } = updatedStats[6];
+      updatedStats[6].dailyProgress = Math.min(
+        dailyProgress + progress,
+        dailyGoal
+      );
 
       const updatedTask = await updateTask(task.id, {
-        dailyProgress: task.dailyProgress + 1,
+        dailyProgress: task.dailyProgress + progress,
         stats: updatedStats,
       });
       setTask(updatedTask);
+      setCachedTime(new Date().getTime());
     }
   };
   useInterval(focus, 1000);
@@ -56,9 +65,13 @@ const TaskScreen = ({ navigation, isFocused }) => {
       />
       {task.dailyProgress < task.dailyGoal && (
         <TaskPlayer
+          cachedTime={cachedTime}
           task={task}
           isPlaying={isPlaying}
-          setIsPlaying={() => setIsPlaying(isPlaying => !isPlaying)}
+          setIsPlaying={() => {
+            setCachedTime(new Date().getTime());
+            setIsPlaying(isPlaying => !isPlaying);
+          }}
         />
       )}
     </View>

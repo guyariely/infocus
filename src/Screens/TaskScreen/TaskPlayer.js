@@ -4,8 +4,11 @@ import { ThemesContext } from '../../Context/ThemesContext';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const TaskPlayer = ({ task, isPlaying, setIsPlaying }) => {
+const TaskPlayer = ({ cachedTime, task, isPlaying, setIsPlaying }) => {
   const { theme } = useContext(ThemesContext);
+
+  const duration =
+    1500 / Math.round((new Date().getTime() - cachedTime) / 1000);
 
   return (
     <View style={styles(theme).container}>
@@ -14,7 +17,7 @@ const TaskPlayer = ({ task, isPlaying, setIsPlaying }) => {
         width={6}
         fill={100 * (task.dailyProgress / task.dailyGoal)}
         rotation={0}
-        duration={1500}
+        duration={duration}
         tintColor={theme.primary}
         backgroundColor={theme.primary02}
       >

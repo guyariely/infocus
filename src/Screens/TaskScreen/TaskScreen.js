@@ -31,7 +31,6 @@ const TaskScreen = ({ navigation, isFocused }) => {
       if (task.dailyGoal >= task.dailyProgress) {
         return setIsPlaying(false);
       }
-      console.log('playing...');
       const progress = Math.round((new Date().getTime() - cachedTime) / 1000);
 
       const updatedStats = task.stats;

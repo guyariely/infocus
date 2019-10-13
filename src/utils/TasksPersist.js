@@ -76,6 +76,7 @@ const deleteTask = async id => {
     const tasks = await getTasks();
     const filteredTasks = tasks.filter(task => task.id != id);
     await AsyncStorage.setItem('tasks', JSON.stringify(filteredTasks));
+    return filteredTasks;
   } catch (error) {
     console.log(error);
   }

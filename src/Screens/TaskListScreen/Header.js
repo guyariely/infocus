@@ -47,7 +47,7 @@ const styles = theme => {
   return {
     container: {
       paddingVertical: 15,
-      paddingHorizontal: 5,
+      paddingHorizontal: 30,
       flexDirection: 'row',
       justifyContent: 'space-between',
     },

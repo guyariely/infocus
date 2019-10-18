@@ -63,8 +63,7 @@ const styles = theme => {
     container: {
       backgroundColor: theme.base01,
       marginBottom: 15,
-      paddingRight: 30,
-      paddingLeft: 30,
+      paddingHorizontal: 30,
     },
     task: {
       flex: 1,

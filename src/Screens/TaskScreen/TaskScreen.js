@@ -8,6 +8,7 @@ import Header from './Header';
 import TaskDetails from './TaskDetails';
 import Counter from '../../Components/Counter';
 import TaskPlayer from './TaskPlayer';
+import isWeekend from '../../utils/isWeekend';
 
 const TaskScreen = ({ navigation, isFocused }) => {
   const { theme } = useContext(ThemesContext);
@@ -15,20 +16,31 @@ const TaskScreen = ({ navigation, isFocused }) => {
   const [task, setTask] = useState(navigation.getParam('task'));
   const [isPlaying, setIsPlaying] = useState(false);
   const [cachedTime, setCachedTime] = useState(null);
+  const [hideTask, setHideTask] = useState(false);
 
   const id = navigation.getParam('id');
   useEffect(() => {
     getTask(id).then(task => setTask(task));
   }, [isFocused]);
 
+  useEffect(() => hideTaskOnWeekend(), [isFocused]);
+
+  const hideTaskOnWeekend = () => {
+    setHideTask(isWeekend() && task.weekendOff);
+  };
+
   const focus = async () => {
+    // checks for a new day
     if (task.stats[6].date != new Date().toLocaleDateString()) {
+      // reset task and check if it is the weekend
+      hideTaskOnWeekend();
+
       const updatedTask = await resetTask(task);
       return setTask(updatedTask);
     }
 
     if (isPlaying) {
-      if (task.dailyGoal >= task.dailyProgress) {
+      if (task.dailyProgress >= task.dailyGoal) {
         return setIsPlaying(false);
       }
       const progress = Math.round((new Date().getTime() - cachedTime) / 1000);
@@ -62,7 +74,7 @@ const TaskScreen = ({ navigation, isFocused }) => {
         style={{ counter: styles(theme).counter }}
         iconSize={60}
       />
-      {task.dailyProgress < task.dailyGoal && (
+      {!hideTask && task.dailyProgress < task.dailyGoal && (
         <TaskPlayer
           cachedTime={cachedTime}
           task={task}

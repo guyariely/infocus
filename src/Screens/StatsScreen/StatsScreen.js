@@ -1,7 +1,8 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { View, Text } from 'react-native';
 import { Dimensions } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
+import { WeekendContext } from '../../Context/WeekendContext';
 import { ThemesContext } from '../../Context/ThemesContext';
 import Header from './Header';
 
@@ -13,8 +14,16 @@ const interpolateColor = (color, opacity) => {
 
 const StatsScreen = ({ navigation }) => {
   const { theme } = useContext(ThemesContext);
+  const { weekendDays } = useContext(WeekendContext);
 
-  const { stats, title } = navigation.getParam('task');
+  const { title, weekendOff } = navigation.getParam('task');
+  let { stats } = navigation.getParam('task');
+
+  if (weekendOff) {
+    stats = stats.filter(
+      stat => !weekendDays.includes(new Date(stat.date).getDay())
+    );
+  }
 
   const data = {
     labels: stats.map(stat => weekDays[new Date(stat.date).getDay()]),

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { View, ScrollView, ActivityIndicator } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
 import { ThemesContext } from '../../Context/ThemesContext';
 import { getTasks, deleteTask } from '../../utils/tasksPersist';

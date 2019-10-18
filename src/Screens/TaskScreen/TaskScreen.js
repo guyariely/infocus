@@ -2,21 +2,22 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useInterval } from '../../Hooks/useInterval';
 import { View, Text } from 'react-native';
 import { withNavigationFocus } from 'react-navigation';
+import { WeekendContext } from '../../Context/WeekendContext';
 import { ThemesContext } from '../../Context/ThemesContext';
 import { getTask, updateTask, resetTask } from '../../utils/tasksPersist';
 import Header from './Header';
 import TaskDetails from './TaskDetails';
 import Counter from '../../Components/Counter';
 import TaskPlayer from './TaskPlayer';
-import isWeekend from '../../utils/isWeekend';
 
 const TaskScreen = ({ navigation, isFocused }) => {
   const { theme } = useContext(ThemesContext);
+  const { isWeekend } = useContext(WeekendContext);
 
   const [task, setTask] = useState(navigation.getParam('task'));
   const [isPlaying, setIsPlaying] = useState(false);
   const [cachedTime, setCachedTime] = useState(null);
-  const [hideTask, setHideTask] = useState(false);
+  const [hidePlayer, setHideTask] = useState(false);
 
   const id = navigation.getParam('id');
   useEffect(() => {
@@ -74,7 +75,7 @@ const TaskScreen = ({ navigation, isFocused }) => {
         style={{ counter: styles(theme).counter }}
         iconSize={60}
       />
-      {!hideTask && task.dailyProgress < task.dailyGoal && (
+      {!hidePlayer && task.dailyProgress < task.dailyGoal && (
         <TaskPlayer
           cachedTime={cachedTime}
           task={task}

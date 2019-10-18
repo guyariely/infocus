@@ -1,18 +1,19 @@
 import React, { useContext } from 'react';
 import { View, Text } from 'react-native';
+import { WeekendContext } from '../../Context/WeekendContext';
 import { ThemesContext } from '../../Context/ThemesContext';
 import TaskItem from './TaskItem';
-import isWeekend from '../../utils/isWeekend';
 
 const TaskList = ({ tasks, deleteTask }) => {
   const { theme } = useContext(ThemesContext);
+  const { isWeekend } = useContext(WeekendContext);
 
   const uncompletedTasks = [];
   const completedTasks = [];
   const weekendOffTasks = [];
 
   tasks.forEach(task => {
-    if (task.weekendOff == true && isWeekend()) {
+    if (task.weekendOff && isWeekend()) {
       return weekendOffTasks.push(task);
     }
     task.dailyProgress >= task.dailyGoal

@@ -3,6 +3,7 @@ import { View, StatusBar } from 'react-native';
 import { AppLoading } from 'expo';
 import { SafeAreaView } from 'react-navigation';
 import StackNavigator from './src/Screens/StackNavigator';
+import WeekendContextProvider from './src/Context/WeekendContext';
 import ThemesContextProvider from './src/Context/ThemesContext';
 import { ThemesContext } from './src/Context/ThemesContext';
 import { getTheme } from './src/utils/themePersist';
@@ -39,9 +40,11 @@ const App = () => {
   return (
     <View style={{ flex: 1 }}>
       <StatusBar barStyle="dark-content" />
-      <ThemesContextProvider>
-        <AppContainer />
-      </ThemesContextProvider>
+      <WeekendContextProvider>
+        <ThemesContextProvider>
+          <AppContainer />
+        </ThemesContextProvider>
+      </WeekendContextProvider>
     </View>
   );
 };

@@ -21,12 +21,13 @@ const TaskScreen = ({ navigation, isFocused }) => {
 
   const id = navigation.getParam('id');
   useEffect(() => {
-    getTask(id).then(task => setTask(task));
+    getTask(id).then(task => {
+      setTask(task);
+      hideTaskOnWeekend(task);
+    });
   }, [isFocused]);
 
-  useEffect(() => hideTaskOnWeekend(), [isFocused]);
-
-  const hideTaskOnWeekend = () => {
+  const hideTaskOnWeekend = task => {
     setHideTask(isWeekend() && task.weekendOff);
   };
 
@@ -34,7 +35,7 @@ const TaskScreen = ({ navigation, isFocused }) => {
     // checks for a new day
     if (task.stats[6].date != new Date().toLocaleDateString()) {
       // reset task and check if it is the weekend
-      hideTaskOnWeekend();
+      hideTaskOnWeekend(task);
 
       const updatedTask = await resetTask(task);
       return setTask(updatedTask);

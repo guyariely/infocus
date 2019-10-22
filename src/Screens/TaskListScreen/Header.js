@@ -36,23 +36,23 @@ const Header = ({ navigation, isFocused }) => {
 
   return (
     <View style={styles(theme).container}>
-      <TouchableOpacity onPress={() => navigation.push('FormScreen')}>
-        <Icon color={theme.primary} name="tune" size={30} />
+      <TouchableOpacity onPress={() => navigation.push('SettingsScreen')}>
+        <Icon color={theme.primary} name="tune" size={24} />
       </TouchableOpacity>
       <TouchableOpacity style={styles(theme).metric} onPress={alertStreak}>
-        <Icon color={theme.text02} name="whatshot" size={30} />
+        <Icon color={theme.text02} name="whatshot" size={24} />
         <View style={styles(theme).metricTextContainer}>
           <Text style={styles(theme).metricText}>{streak.value}</Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity style={styles(theme).metric} onPress={alertXP}>
-        <Icon color={theme.text02} name="access-time" size={30} />
+        <Icon color={theme.text02} name="access-time" size={24} />
         <View style={styles(theme).metricTextContainer}>
           <Text style={styles(theme).metricText}>{XP}</Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.push('FormScreen')}>
-        <Icon color={theme.primary} name="add" size={30} />
+        <Icon color={theme.primary} name="add" size={24} />
       </TouchableOpacity>
     </View>
   );
@@ -76,7 +76,7 @@ const styles = theme => {
       fontSize: 16,
       fontWeight: 'bold',
       color: theme.text02,
-      paddingLeft: 5,
+      paddingLeft: 6,
     },
   };
 };

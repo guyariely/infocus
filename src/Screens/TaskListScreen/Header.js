@@ -5,6 +5,7 @@ import { withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getStreak } from '../../utils/streakPersist';
 import { getXP } from '../../utils/XpPersist';
+import formatXP from '../../utils/formatXP';
 
 const Header = ({ navigation, isFocused }) => {
   const { theme } = useContext(ThemesContext);
@@ -17,7 +18,7 @@ const Header = ({ navigation, isFocused }) => {
       const streak = await getStreak();
       setStreak(streak);
       const XP = await getXP();
-      setXP(XP);
+      setXP(formatXP(XP));
     };
     updateMetrics();
   }, [isFocused]);

@@ -5,6 +5,8 @@ import { withNavigationFocus } from 'react-navigation';
 import { WeekendContext } from '../../Context/WeekendContext';
 import { ThemesContext } from '../../Context/ThemesContext';
 import { getTask, updateTask, resetTask } from '../../utils/tasksPersist';
+import { updateStreak } from '../../utils/streakPersist';
+import { updateXP } from '../../utils/XpPersist';
 import Header from './Header';
 import TaskDetails from './TaskDetails';
 import Counter from '../../Components/Counter';
@@ -60,6 +62,8 @@ const TaskScreen = ({ navigation, isFocused }) => {
       });
       setTask(updatedTask);
       setCachedTime(new Date().getTime());
+      await updateXP(progress);
+      await updateStreak();
     }
   };
   useInterval(focus, 1000);

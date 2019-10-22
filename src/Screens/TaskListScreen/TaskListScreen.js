@@ -4,6 +4,7 @@ import { withNavigationFocus } from 'react-navigation';
 import { ThemesContext } from '../../Context/ThemesContext';
 import { getTasks, deleteTask } from '../../utils/tasksPersist';
 import Header from './Header';
+import Searchbar from './Searchbar';
 import TaskList from './TaskList';
 
 function TaskListScreen(props) {
@@ -27,8 +28,12 @@ function TaskListScreen(props) {
 
   return (
     <View style={styles(theme).container}>
-      <ScrollView contentContainerStyle={styles(theme).scrollview}>
-        <Header tasks={tasks} setFilteredTasks={setFilteredTasks} />
+      <Header isFocused={props.isFocused} />
+      <ScrollView
+        contentOffset={{ x: 0, y: 60 }}
+        contentContainerStyle={styles(theme).scrollview}
+      >
+        <Searchbar tasks={tasks} setFilteredTasks={setFilteredTasks} />
         {tasks.length > 0 && (
           <TaskList
             tasks={filteredTasks != null ? filteredTasks : tasks}

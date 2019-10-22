@@ -1,42 +1,57 @@
-import React, { useState, useContext } from 'react';
-import { View, TextInput, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState, useContext } from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { ThemesContext } from '../../Context/ThemesContext';
 import { withNavigation } from 'react-navigation';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { getStreak } from '../../utils/streakPersist';
+import { getXP } from '../../utils/XpPersist';
 
-const Header = ({ navigation, tasks, setFilteredTasks }) => {
+const Header = ({ navigation, isFocused }) => {
   const { theme } = useContext(ThemesContext);
 
-  const [searchInput, setSearchInput] = useState('');
+  const [streak, setStreak] = useState(0);
+  const [XP, setXP] = useState(0);
 
-  const filterResults = input => {
-    if (!input) setFilteredTasks(null);
+  useEffect(() => {
+    const updateMetrics = async () => {
+      const streak = await getStreak();
+      setStreak(streak);
+      const XP = await getXP();
+      setXP(XP);
+    };
+    updateMetrics();
+  }, [isFocused]);
 
-    const filteredTasks = tasks.filter(
-      task =>
-        task.title.toLowerCase().includes(input.toLowerCase()) ||
-        task.description.toLowerCase().includes(input.toLowerCase())
+  const alertStreak = () => {
+    alert(
+      `Your streak increases for every day you focus on one of your tasks. Be careful not to miss any day or you will lose your streak!`
     );
-    setFilteredTasks(filteredTasks);
+  };
+
+  const alertXP = () => {
+    alert(
+      `Your focus points will increase for every second you focus on your tasks. Keep focusing on your tasks to rack up more focus points.`
+    );
   };
 
   return (
     <View style={styles(theme).container}>
-      <TextInput
-        style={styles(theme).searchInput}
-        placeholder="Search"
-        placeholderTextColor={theme.primary}
-        selectionColor={theme.primary}
-        value={searchInput}
-        onChangeText={input => {
-          filterResults(input);
-          setSearchInput(input);
-        }}
-      />
-      <TouchableOpacity
-        onPress={() => navigation.push('FormScreen')}
-        style={styles(theme).addButton}
-      >
+      <TouchableOpacity onPress={() => navigation.push('FormScreen')}>
+        <Icon color={theme.primary} name="tune" size={30} />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles(theme).metric} onPress={alertStreak}>
+        <Icon color={theme.text02} name="whatshot" size={30} />
+        <View style={styles(theme).metricTextContainer}>
+          <Text style={styles(theme).metricText}>{streak.value}</Text>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles(theme).metric} onPress={alertXP}>
+        <Icon color={theme.text02} name="access-time" size={30} />
+        <View style={styles(theme).metricTextContainer}>
+          <Text style={styles(theme).metricText}>{XP}</Text>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.push('FormScreen')}>
         <Icon color={theme.primary} name="add" size={30} />
       </TouchableOpacity>
     </View>
@@ -51,15 +66,17 @@ const styles = theme => {
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
-    searchInput: {
-      fontSize: 22,
-      color: theme.text01,
-      flex: 6,
-    },
-    addButton: {
-      flex: 1,
+    metric: {
       flexDirection: 'row',
-      justifyContent: 'flex-end',
+    },
+    metricTextContainer: {
+      justifyContent: 'center',
+    },
+    metricText: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      color: theme.text02,
+      paddingLeft: 5,
     },
   };
 };

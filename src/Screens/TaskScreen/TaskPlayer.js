@@ -28,7 +28,7 @@ const TaskPlayer = ({ cachedTime, task, isPlaying, setIsPlaying }) => {
           >
             <View style={isPlaying ? styles(theme).pause : styles(theme).play}>
               <Icon
-                color={theme.base01}
+                color={'rgba(250, 250, 250, 1)'}
                 name={isPlaying ? 'ios-pause' : 'ios-play'}
                 size={80}
               />

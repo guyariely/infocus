@@ -3,12 +3,13 @@ import { View, TextInput } from 'react-native';
 import { ThemesContext } from '../../../Context/ThemesContext';
 
 const Description = ({ description, setDescription }) => {
-  const { theme } = useContext(ThemesContext);
+  const { theme, themeType } = useContext(ThemesContext);
   return (
     <View style={styles(theme).container}>
       <View style={styles(theme).descriptionContainer}>
         <TextInput
           style={styles(theme).description}
+          keyboardAppearance={themeType == 'light' ? 'light' : 'dark'}
           multiline
           minHeight={100}
           scrollEnabled={false}
@@ -37,6 +38,7 @@ const styles = theme => {
     },
     description: {
       fontSize: 18,
+      color: theme.text01,
     },
   };
 };

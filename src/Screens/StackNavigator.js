@@ -8,12 +8,6 @@ import SettingsScreen from '../Screens/SettingsScreen/SettingsScreen';
 
 const StackNavigator = createStackNavigator(
   {
-    SettingsScreen: {
-      screen: SettingsScreen,
-      navigationOptions: {
-        gesturesEnabled: false,
-      },
-    },
     TaskListScreen: {
       screen: TaskListScreen,
     },

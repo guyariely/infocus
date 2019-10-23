@@ -10,13 +10,13 @@ import { getTheme } from './src/utils/themePersist';
 
 const AppContainer = () => {
   const [appLoading, setAppLoading] = useState(true);
-  const { theme, setTheme } = useContext(ThemesContext);
+  const { theme, themeType, toggleTheme } = useContext(ThemesContext);
 
   useEffect(() => {
     getTheme()
       .then(theme => {
         if (theme) {
-          setTheme(theme.colors);
+          toggleTheme(theme);
         }
         setAppLoading(false);
       })
@@ -29,8 +29,11 @@ const AppContainer = () => {
 
   return (
     <View style={styles(theme).appContainer}>
+      <StatusBar
+        barStyle={themeType == 'light' ? 'dark-content' : 'light-content'}
+      />
       <SafeAreaView style={{ flex: 1 }} forceInset={{ bottom: 'never' }}>
-        <StackNavigator screenProps={{ theme: theme }} />
+        <StackNavigator />
       </SafeAreaView>
     </View>
   );
@@ -39,7 +42,6 @@ const AppContainer = () => {
 const App = () => {
   return (
     <View style={{ flex: 1 }}>
-      <StatusBar barStyle="dark-content" />
       <WeekendContextProvider>
         <ThemesContextProvider>
           <AppContainer />

@@ -3,7 +3,7 @@ import { View, TextInput } from 'react-native';
 import { ThemesContext } from '../../Context/ThemesContext';
 
 const Searchbar = ({ tasks, setFilteredTasks }) => {
-  const { theme } = useContext(ThemesContext);
+  const { theme, themeType } = useContext(ThemesContext);
 
   const [searchInput, setSearchInput] = useState('');
 
@@ -23,6 +23,7 @@ const Searchbar = ({ tasks, setFilteredTasks }) => {
     <View style={styles(theme).container}>
       <TextInput
         style={styles(theme).searchInput}
+        keyboardAppearance={themeType == 'light' ? 'light' : 'dark'}
         placeholder="Search"
         placeholderTextColor={theme.text02}
         selectionColor={theme.primary}

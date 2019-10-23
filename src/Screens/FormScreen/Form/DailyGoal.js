@@ -81,6 +81,7 @@ const styles = theme => {
     title: {
       fontSize: 40,
       fontWeight: '400',
+      color: theme.text01,
     },
     inputs: {
       paddingTop: 5,

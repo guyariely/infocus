@@ -3,12 +3,13 @@ import { View, TextInput } from 'react-native';
 import { ThemesContext } from '../../../Context/ThemesContext';
 
 const Title = ({ title, setTitle }) => {
-  const { theme } = useContext(ThemesContext);
+  const { theme, themeType } = useContext(ThemesContext);
 
   return (
     <View style={styles(theme).container}>
       <TextInput
         style={styles(theme).title}
+        keyboardAppearance={themeType == 'light' ? 'light' : 'dark'}
         placeholder="Title"
         placeholderTextColor={theme.placeholderText}
         selectionColor={theme.primary}
@@ -24,6 +25,7 @@ const styles = theme => {
     title: {
       fontSize: 55,
       fontWeight: '600',
+      color: theme.text01,
     },
   };
 };

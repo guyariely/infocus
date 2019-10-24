@@ -27,7 +27,7 @@ const SettingButton = ({ style, title, isActive, onPress }) => {
 const styles = theme => {
   return {
     container: {
-      flex: 1,
+      flexGrow: 1,
       flexDirection: 'row',
       justifyContent: 'space-between',
       borderColor: theme.primary,

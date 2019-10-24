@@ -3,6 +3,7 @@ import { View } from 'react-native';
 import { ThemesContext } from '../../Context/ThemesContext';
 import Header from './Header';
 import ThemeSetting from './ThemeSetting';
+import WeekendSetting from './WeekendSetting';
 
 const SettingsScreen = ({}) => {
   const { theme } = useContext(ThemesContext);
@@ -11,6 +12,7 @@ const SettingsScreen = ({}) => {
     <View style={styles(theme).container}>
       <Header />
       <ThemeSetting />
+      <WeekendSetting />
     </View>
   );
 };

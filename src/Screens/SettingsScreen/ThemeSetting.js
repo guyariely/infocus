@@ -21,11 +21,7 @@ const ThemeSetting = ({}) => {
           title="Dark"
           style={darkThemeStyles}
           isActive={themeType == 'dark'}
-          onPress={() => {
-            console.log('changing theme to dark');
-            console.log('colors of theme are:', themes.dark);
-            toggleTheme(themes.dark);
-          }}
+          onPress={() => toggleTheme(themes.dark)}
         />
       </View>
     </View>
@@ -53,7 +49,6 @@ const lightThemeStyles = {
 
 const styles = theme => {
   return {
-    container: {},
     heading: {
       paddingVertical: 20,
       fontSize: 20,
@@ -62,17 +57,7 @@ const styles = theme => {
     },
     themes: {
       flexDirection: 'row',
-    },
-    option: {
-      flex: 1,
-      borderColor: theme.primary,
-      borderWidth: 1,
-      borderRadius: 5,
-      padding: 15,
-    },
-    title: {
-      color: theme.text01,
-      fontSize: 18,
+      justifyContent: 'space-between',
     },
   };
 };

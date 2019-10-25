@@ -1,7 +1,8 @@
 {
   "expo": {
-    "name": "infocus",
+    "name": "Infocus",
     "slug": "infocus",
+    "description": "Get more done with a more focused schedule.",
     "privacy": "unlisted",
     "sdkVersion": "34.0.0",
     "platforms": [
@@ -15,8 +16,9 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#fff"
+      "backgroundColor": "#fafafa"
     },
+    "primaryColor": "#d68f82",
     "updates": {
       "fallbackToCacheTimeout": 0
     },

@@ -4,7 +4,6 @@
     "slug": "infocus",
     "description": "Get more done with a more focused schedule.",
     "privacy": "unlisted",
-    "sdkVersion": "34.0.0",
     "platforms": [
       "ios",
       "android",

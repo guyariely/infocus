@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { View, StatusBar } from 'react-native';
-import { AppLoading } from 'expo';
+import AppLoading from 'expo-app-loading';
 import { SafeAreaView } from 'react-navigation';
 import StackNavigator from './src/Screens/StackNavigator';
 import WeekendContextProvider from './src/Context/WeekendContext';

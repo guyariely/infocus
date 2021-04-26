@@ -48,6 +48,7 @@ const styles = theme => {
     },
     playerButton: {
       justifyContent: 'center',
+      alignItems: 'center',
       backgroundColor: theme.primary,
       borderRadius: 100,
       height: 110,
@@ -57,12 +58,10 @@ const styles = theme => {
       shadowOpacity: 0.3,
     },
     play: {
-      marginLeft: 40,
-      marginTop: 6,
+      marginLeft: 10,
     },
     pause: {
-      marginLeft: 35,
-      marginTop: 5,
+      marginLeft: 5,
     },
   };
 };

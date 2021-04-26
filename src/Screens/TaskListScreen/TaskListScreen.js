@@ -14,7 +14,7 @@ function TaskListScreen(props) {
   const [filteredTasks, setFilteredTasks] = useState(null);
 
   useEffect(() => {
-    getTasks().then(tasks => setTasks(tasks.reverse()));
+    getTasks().then(tasks => setTasks(tasks));
   }, [props.isFocused]);
 
   const removeTask = id => {

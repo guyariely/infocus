@@ -14,25 +14,25 @@ const StackNavigator = createStackNavigator(
     FormScreen: {
       screen: FormScreen,
       navigationOptions: {
-        gesturesEnabled: false,
+        gestureEnabled: false,
       },
     },
     TaskScreen: {
       screen: TaskScreen,
       navigationOptions: {
-        gesturesEnabled: false,
+        gestureEnabled: false,
       },
     },
     StatsScreen: {
       screen: StatsScreen,
       navigationOptions: {
-        gesturesEnabled: false,
+        gestureEnabled: false,
       },
     },
     SettingsScreen: {
       screen: SettingsScreen,
       navigationOptions: {
-        gesturesEnabled: false,
+        gestureEnabled: false,
       },
     },
   },
